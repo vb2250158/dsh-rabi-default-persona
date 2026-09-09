@@ -1,7 +1,7 @@
 {
   "name": "dsh-rabi-default-persona",
   "description": "Durable global Rabi persona prompt and its DSH settings page",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "type": "module",
   "main": "lib/index.mjs",
   "types": "lib/types/index.d.ts",

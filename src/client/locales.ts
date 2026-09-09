@@ -2,6 +2,7 @@
 
 export const en = {
   nav: 'Rabi persona',
+  personaPrompt: 'Additional persona prompt',
   title: 'Rabi',
   enabled: 'Enable Rabi for all DSH sessions',
   managerAddress: 'Manager address',
@@ -22,6 +23,7 @@ export type RabiDefaultPersonaKey = keyof typeof en
 
 export const zh: { [Key in RabiDefaultPersonaKey]: string } = {
   nav: 'Rabi 人格',
+  personaPrompt: '附加人格提示词',
   title: 'Rabi',
   enabled: '全局启用 Rabi',
   managerAddress: 'Manager 地址',

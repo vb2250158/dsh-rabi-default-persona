@@ -27,3 +27,5 @@ npm pack --dry-run
 ## 许可证
 
 MIT
+
+Local integration retains the additional personaPrompt field and editor alongside the Manager binding. The additional prompt is appended independently of the Manager binding switch; the profile loader still owns whether this plugin is enabled.

@@ -1,7 +1,6 @@
 /** Host half for the Manager-owned global Rabi persona binding. */
 
 import type { Context } from '@deepseek-ai/cordis'
-import { settingsNamespace } from '@deepseek-ai/dsh-settings'
 import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
 import { createRequire } from 'node:module'
 import { homedir } from 'node:os'
@@ -26,7 +25,7 @@ export {
   type RabiDefaultPersonaSettings,
 } from './persona-settings.ts'
 
-const SETTINGS_NAMESPACE = settingsNamespace(RABI_DEFAULT_PERSONA_SETTINGS_NAMESPACE)
+const SETTINGS_NAMESPACE = RABI_DEFAULT_PERSONA_SETTINGS_NAMESPACE
 const PROMPT_SECTION_NAME = 'rabi:global-default-persona'
 const PROMPT_SECTION_ORDER = 10
 const REQUEST_TIMEOUT_MS = 10_000
@@ -99,7 +98,7 @@ function normalizeSettings(value: unknown): RabiDefaultPersonaSettings {
   const roleId = source.roleId.trim()
   if (roleId === '.' || roleId === '..' || /[\\/]/.test(roleId)) throw new Error('Rabi persona identifier is invalid.')
   if (source.enabled && roleId === '') throw new Error('Select a Rabi persona before enabling it.')
-  return { enabled: source.enabled, managerBaseUrl: normalizeManagerBaseUrl(source.managerBaseUrl), roleId }
+  return { ...(typeof source.personaPrompt === 'string' ? { personaPrompt: source.personaPrompt } : {}), enabled: source.enabled, managerBaseUrl: normalizeManagerBaseUrl(source.managerBaseUrl), roleId }
 }
 
 async function managerFetch(baseUrl: string, pathname: string): Promise<Response> {
@@ -280,12 +279,13 @@ export function apply(ctx: Context, config: Config = {}): void {
       base: {
         enabled: config.enabled ?? DEFAULT_RABI_PERSONA_ENABLED,
         managerBaseUrl: config.managerBaseUrl ?? DEFAULT_RABI_MANAGER_BASE_URL,
+        personaPrompt: config.personaPrompt ?? '',
         roleId: config.roleId ?? DEFAULT_RABI_PERSONA_ID,
       },
     })
     const RabiPersonaCatalog = createProfileRabiPersonaCatalog()
     const catalog = new RabiPersonaCatalog(ctx, scope)
-    injected.systemPrompt.section({ name: PROMPT_SECTION_NAME, order: PROMPT_SECTION_ORDER, text: () => catalog.prompt() })
+    injected.systemPrompt.section({ name: PROMPT_SECTION_NAME, order: PROMPT_SECTION_ORDER, text: () => [catalog.prompt(), scope.get()?.personaPrompt?.trim() ?? ''].filter(Boolean).join('\n\n') })
     ctx.effect(() => {
       void catalog.refresh().catch(() => undefined)
       return ctx.on('settings/updated', (namespace) => {

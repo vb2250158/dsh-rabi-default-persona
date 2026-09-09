@@ -13,6 +13,7 @@ export const DEFAULT_RABI_PERSONA_ID = ''
 /** Durable binding to one local RabiRoute persona. */
 export interface RabiDefaultPersonaSettings {
   /** Whether every DSH agent receives the selected Rabi persona. */
+  personaPrompt?: string
   enabled: boolean
   /** RabiRoute Manager address that owns the persona catalog and documents. */
   managerBaseUrl: string
@@ -22,6 +23,7 @@ export interface RabiDefaultPersonaSettings {
 
 /** Runtime loader configuration. It only supplies the first-run default. */
 export interface Config {
+  personaPrompt?: string
   enabled?: boolean
   managerBaseUrl?: string
   roleId?: string
@@ -29,6 +31,7 @@ export interface Config {
 
 /** Durable user-settings schema. */
 export const RabiDefaultPersonaSettingsSchema: z<RabiDefaultPersonaSettings> = z.object({
+  personaPrompt: z.string().default(''),
   enabled: z.boolean().default(DEFAULT_RABI_PERSONA_ENABLED),
   managerBaseUrl: z.string().default(DEFAULT_RABI_MANAGER_BASE_URL),
   roleId: z.string().default(DEFAULT_RABI_PERSONA_ID),
@@ -36,6 +39,7 @@ export const RabiDefaultPersonaSettingsSchema: z<RabiDefaultPersonaSettings> = z
 
 /** Loader configuration schema. */
 export const Config: z<Config> = z.object({
+  personaPrompt: z.string().default(''),
   enabled: z.boolean().default(DEFAULT_RABI_PERSONA_ENABLED),
   managerBaseUrl: z.string().default(DEFAULT_RABI_MANAGER_BASE_URL),
   roleId: z.string().default(DEFAULT_RABI_PERSONA_ID),

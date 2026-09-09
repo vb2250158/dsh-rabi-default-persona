@@ -79,6 +79,7 @@ function Loaded(props: RabiDefaultPersonaSectionInjected): React.ReactNode {
     || draft.enabled !== status.settings.enabled
     || draft.managerBaseUrl !== status.settings.managerBaseUrl
     || draft.roleId !== status.settings.roleId
+    || (draft.personaPrompt ?? '') !== (status.settings.personaPrompt ?? '')
 
   return (
     <section style={styles.section}>
@@ -100,6 +101,11 @@ function Loaded(props: RabiDefaultPersonaSectionInjected): React.ReactNode {
           disabled={saving}
           onChange={(event) => { setDraft(current => ({ ...current, managerBaseUrl: event.target.value })); setSaved(false); setError(undefined) }}
         />
+      </label>
+      <label style={styles.field}>
+        <span style={styles.label}>{props.t('personaPrompt')}</span>
+        <textarea value={draft.personaPrompt ?? ''} disabled={saving} rows={6} style={styles.select}
+          onChange={event => { setDraft(current => ({ ...current, personaPrompt: event.target.value })); setSaved(false) }} />
       </label>
       <div style={styles.actions}>
         <Button variant="outline" disabled={saving} onClick={refresh}>{props.t('refresh')}</Button>
