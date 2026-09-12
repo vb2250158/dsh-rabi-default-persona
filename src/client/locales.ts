@@ -1,8 +1,7 @@
 /** Copy for the Rabi global persona settings page. */
 
 export const en = {
-  nav: 'Rabi persona',
-  personaPrompt: 'Additional persona prompt',
+  nav: 'Rabi',
   title: 'Rabi',
   enabled: 'Enable Rabi for all DSH sessions',
   managerAddress: 'Manager address',
@@ -14,16 +13,12 @@ export const en = {
   saving: 'Saving…',
   saved: 'Saved',
   managerOffline: 'Rabi Manager is offline.',
-  plans: 'Plans',
-  plansLoading: 'Loading plans…',
-  plansEmpty: 'No plans for this persona.',
 } as const
 
 export type RabiDefaultPersonaKey = keyof typeof en
 
 export const zh: { [Key in RabiDefaultPersonaKey]: string } = {
-  nav: 'Rabi 人格',
-  personaPrompt: '附加人格提示词',
+  nav: 'Rabi',
   title: 'Rabi',
   enabled: '全局启用 Rabi',
   managerAddress: 'Manager 地址',
@@ -35,7 +30,4 @@ export const zh: { [Key in RabiDefaultPersonaKey]: string } = {
   saving: '正在保存……',
   saved: '已保存',
   managerOffline: 'Rabi Manager 未启动或无法连接。',
-  plans: '计划',
-  plansLoading: '正在读取计划……',
-  plansEmpty: '这个人格还没有计划。',
 }

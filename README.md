@@ -1,6 +1,6 @@
 # dsh-rabi-default-persona
 
-通过 Rabi Manager 选择并启用全局 Rabi 人格。
+通过设置中的“Rabi”页面连接 Rabi Manager，选择并启用全局人格。聊天侧栏不再提供“计划”入口。
 
 ## 安装
 
